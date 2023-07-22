@@ -6,8 +6,8 @@ int shell_cd(char **args, char __attribute__((__unused__)) **front);
 int shell_help(char **args, char __attribute__((__unused__)) **front);
 
 /**
- * get_builtin - Matches a command with a corresponding
- *               shell builtin function.
+ * get_builtin - The function matches the given command with a corresponding
+ * shell builtin function.
  * @command: The command to match.
  *
  * Return: A function pointer to the corresponding builtin.
