@@ -5,20 +5,20 @@ int shell_setenv(char **args, char __attribute__((__unused__)) **front);
 int shell_unsetenv(char **args, char __attribute__((__unused__)) **front);
 
 /**
- * shell_env - Prints the current environment.
- * @args: An array of arguments inputed to the shell.
- * @front: A double pointer to the beginning of args.
+ * shell_env - Prints the current environment
+ * @args: An array of arguments inputed to the shell
+ * @front: A double pointer to the starting args
  *
- * Return: If an error occurs - -1.
- *	   Otherwise - 0.
+ * Return: If an error occurs - -1
+ * Otherwise - 0
  *
  * Description: Prints one variable per line in the
- *              format 'variable'='value'.
+ * format 'variable'='value'
  */
 int shell_env(char **args, char __attribute__((__unused__)) **front)
 {
 	int index;
-	char nc = '\n';
+	char nl = '\n';
 
 	if (!environ)
 		return (-1);
@@ -34,18 +34,18 @@ int shell_env(char **args, char __attribute__((__unused__)) **front)
 }
 
 /**
- * shell_setenv - Changes or creates an environment variable to the PATH.
- * @args: An array of arguments passed to the shell.
- * @front: A double pointer to the beginning of args.
- * Description: args[1] is the name of the new or existing PATH variable.
- *              args[2] is the value to set the new or changed variable to.
+ * shell_setenv - Changes or creates an environment variable to the PATH
+ * @args: An array of arguments inputed to the shell
+ * @front: A double pointer to the beginning of args
+ * Description: args[1] is the name of the new or existing PATH variable,
+ * args[2] is the value to set the new or changed variable to
  *
- * Return: If an error occurs - -1.
- *         Otherwise - 0.
+ * Return: If an error occurs - -1
+ * Otherwise - 0
  */
 int shell_setenv(char **args, char __attribute__((__unused__)) **front)
 {
-	char **env_var = NULL, **new_environ, *new_value;
+	char **env_variable = NULL, **new_env, *new_value;
 	size_t size;
 	int index;
 
@@ -59,28 +59,28 @@ int shell_setenv(char **args, char __attribute__((__unused__)) **front)
 	_strcat(new_value, "=");
 	_strcat(new_value, args[1]);
 
-	env_var = _getenv(args[0]);
-	if (env_var)
+	env_variable = _getenv(args[0]);
+	if (env_variable)
 	{
-		free(*env_var);
-		*env_var = new_value;
+		free(*env_varible);
+		*env_variable = new_value;
 		return (0);
 	}
 	for (size = 0; environ[size]; size++)
 		;
 
-	new_environ = malloc(sizeof(char *) * (size + 2));
-	if (!new_environ)
+	new_env = malloc(sizeof(char *) * (size + 2));
+	if (!new_env)
 	{
 		free(new_value);
 		return (create_error(args, -1));
 	}
 
 	for (index = 0; environ[index]; index++)
-		new_environ[index] = environ[index];
+		new_env[index] = environ[index];
 
 	free(environ);
-	environ = new_environ;
+	environ = new_env;
 	environ[index] = new_value;
 	environ[index + 1] = NULL;
 
@@ -88,45 +88,45 @@ int shell_setenv(char **args, char __attribute__((__unused__)) **front)
 }
 
 /**
- * shell_unsetenv - Deletes an environmental variable from the PATH.
- * @args: An array of arguments passed to the shell.
- * @front: A double pointer to the beginning of args.
- * Description: args[1] is the PATH variable to remove.
+ * shell_unsetenv - Deletes an environment variable from the PATH
+ * @args: An array of arguments passed to the shell
+ * @front: A double pointer to the beginning of args
+ * Description: args[1] is the PATH variable to remove
  *
- * Return: If an error occurs - -1.
- *         Otherwise - 0.
+ * Return: If an error occurs - -1
+ * Otherwise - 0
  */
 int shell_unsetenv(char **args, char __attribute__((__unused__)) **front)
 {
-	char **env_var, **new_environ;
+	char **env_variable, **new_env;
 	size_t size;
 	int index, index2;
 
 	if (!args[0])
 		return (create_error(args, -1));
-	env_var = _getenv(args[0]);
-	if (!env_var)
+	env_variable = _getenv(args[0]);
+	if (!env_variable)
 		return (0);
 
 	for (size = 0; environ[size]; size++)
 		;
 
-	new_environ = malloc(sizeof(char *) * size);
-	if (!new_environ)
+	new_env = malloc(sizeof(char *) * size);
+	if (!new_env)
 		return (create_error(args, -1));
 
 	for (index = 0, index2 = 0; environ[index]; index++)
 	{
-		if (*env_var == environ[index])
+		if (*env_variable == environ[index])
 		{
-			free(*env_var);
+			free(*env_variable);
 			continue;
 		}
-		new_environ[index2] = environ[index];
+		new_env[index2] = environ[index];
 		index2++;
 	}
 	free(environ);
-	environ = new_environ;
+	environ = new_env;
 	environ[size - 1] = NULL;
 
 	return (0);
