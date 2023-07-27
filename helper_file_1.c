@@ -88,7 +88,7 @@ char *get_env_value(char *beginning, int len)
 			temp++;
 		temp++;
 		substitution = malloc(_strlen(temp) + 1);
-		if (replacement)
+		if (substitution)
 			_strcpy(substitution, temp);
 	}
 
@@ -96,7 +96,7 @@ char *get_env_value(char *beginning, int len)
 }
 
 /**
- * variable_replacement - Manages variable substitution
+ * variable_substitution - Manages variable substitution
  * @line: A double pointer containing the command and arguments
  * @executed_ret: A pointer to the return value of the last executed command
  *

@@ -112,7 +112,7 @@ int execute_args(char **args, char **front, int *executed_ret)
 	int ret, i;
 	int (*builtin)(char **args, char **front);
 
-	builtin = get_builtin(args[0]);
+	builtin = get_builtins(args[0]);
 
 	if (builtin)
 	{
@@ -185,8 +185,8 @@ int handle_args(int *executed_ret)
  * in the input
  * @args: A double pointer to tokenized inputs
  *
- * Return: If a ';', '&&', or '||' is placed at an invalid position - 2.
- *	   Otherwise - 0.
+ * Return: If a ';', '&&', or '||' is placed at an invalid position - 2
+ * Otherwise - 0.
  */
 int check_args(char **args)
 {

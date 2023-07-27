@@ -14,12 +14,17 @@
 #define END_OF_FILE -2
 #define EXIT -3
 
+/* Global variables for environment, program name,
+ * and history count */
 extern char **environ;
+char *name;
+int hist;
 
 /**
- * struct list_s - A new struct type defining a linked list
+ * struct list_s - Introducing a novel structure type
+ * that defines a linked list
  * @dir: A directory path
- * @next: A pointer to another struct list_s
+ * @next: A pointer to the other struct list_s
  */
 typedef struct list_s
 {
@@ -28,9 +33,11 @@ typedef struct list_s
 } list_t;
 
 /**
- * struct builtin_s - A new struct type defining builtin commands
+ * struct builtin_s - Introducing a fresh structure type
+ * that defines built-in commands
  * @name: The name of the builtin command
- * @f: A function pointer to the builtin command's function
+ * @f: A function pointer referencing the function
+ * for the built-in command
  */
 typedef struct builtin_s
 {
@@ -39,10 +46,10 @@ typedef struct builtin_s
 } builtin_t;
 
 /**
- * struct alias_s - A new struct defining aliases
+ * struct alias_s - A fresh struct defining aliases
  * @name: The name of the alias
  * @value: The value of the alias
- * @next: A pointer to another struct alias_s
+ * @next: A pointer to the other struct alias_s
  */
 typedef struct alias_s
 {
@@ -51,10 +58,10 @@ typedef struct alias_s
 	struct alias_s *next;
 } alias_t;
 
-/* Global aliases linked list */
+/* Global aliases for linked list */
 alias_t *aliases;
 
-/* Main Helpers */
+/* For Main runner */
 ssize_t _getline(char **lineptr, size_t *n, FILE *channel);
 void *_realloc(void *ptr, unsigned int old_sz, unsigned int new_sz);
 char **_strtok(char *line, char *delim);
@@ -64,18 +71,18 @@ int execute(char **args, char **front);
 void free_list(list_t *head);
 char *_itoa(int num);
 
-/* Input Helpers */
+/* For Handling args */
 void handle_line(char **line, ssize_t read);
-void variable_replacement(char **args, int *exe_ret);
-char *get_args(char *line, int *exe_ret);
-int call_args(char **args, char **front, int *exe_ret);
-int run_args(char **args, char **front, int *exe_ret);
-int handle_args(int *exe_ret);
+void variable_substitution(char **args, int *executed_ret);
+char *get_args(char *line, int *executed_ret);
+int invoke_args(char **args, char **front, int *executed_ret);
+int execute_args(char **args, char **front, int *executed_ret);
+int handle_args(int *executed_ret);
 int check_args(char **args);
 void free_args(char **args, char **front);
 char **replace_aliases(char **args);
 
-/* String functions */
+/* For String helper */
 int _strlen(const char *s);
 char *_strcat(char *dest, const char *src);
 char *_strncat(char *dest, const char *src, size_t n);
@@ -95,22 +102,22 @@ int shell_cd(char **args, char __attribute__((__unused__)) **front);
 int shell_alias(char **args, char __attribute__((__unused__)) **front);
 int shell_help(char **args, char __attribute__((__unused__)) **front);
 
-/* Builtin Helpers */
-char **_copyenv(void);
+/*For Environment */
+char **copy_env(void);
 void free_env(void);
 char **_getenv(const char *var);
 
-/* Error Handling */
-int create_error(char **args, int err);
-char *error_env(char **args);
-char *error_1(char **args);
-char *error_2_exit(char **args);
-char *error_2_cd(char **args);
-char *error_2_syntax(char **args);
+/* For Errors*/
+int create_error(char **args, int er);
+char *env_error(char **args);
+char *alias_error(char **args);
+char *exit_error(char **args);
+char *cd_error(char **args);
+char *syntax_error(char **args);
 char *error_126(char **args);
 char *error_127(char **args);
 
-/* Linkedlist Helpers */
+/* For Linked_lists */
 alias_t *add_alias_end(alias_t **head, char *name, char *value);
 void free_alias_list(alias_t *head);
 list_t *add_node_end(list_t **head, char *dir);
@@ -126,5 +133,5 @@ void helper_setenv(void);
 void helper_unsetenv(void);
 void helper_history(void);
 
-int file_commands(char *file_path, int *exe_ret);
+int file_commands(char *file_path, int *executed_ret);
 #endif /* _SHELL_H_ */

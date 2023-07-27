@@ -76,7 +76,7 @@ char **_strtok(char *line, char *delim)
 	if (!ptr)
 		return (NULL);
 
-	for (t = 0; t < tokens; t++)
+	for (a = 0; a < tokens; a++)
 	{
 		while (line[index] == *delim)
 			index++;
@@ -92,7 +92,7 @@ char **_strtok(char *line, char *delim)
 			return (NULL);
 		}
 
-		for (l = 0; l < letters; l++)
+		for (b = 0; b < letters; b++)
 		{
 			ptr[a][b] = line[index];
 			index++;

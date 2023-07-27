@@ -26,7 +26,7 @@ int shell_env(char **args, char __attribute__((__unused__)) **front)
 	for (index = 0; environ[index]; index++)
 	{
 		write(STDOUT_FILENO, environ[index], _strlen(environ[index]));
-		write(STDOUT_FILENO, &nc, 1);
+		write(STDOUT_FILENO, &nl, 1);
 	}
 
 	(void)args;
@@ -62,7 +62,7 @@ int shell_setenv(char **args, char __attribute__((__unused__)) **front)
 	env_variable = _getenv(args[0]);
 	if (env_variable)
 	{
-		free(*env_varible);
+		free(*env_variable);
 		*env_variable = new_value;
 		return (0);
 	}

@@ -114,8 +114,8 @@ ssize_t _getline(char **lineptr, size_t *n, FILE *channel)
 
 	while (c != '\n')
 	{
-		r = read(STDIN_FILENO, &c, 1);
-		if (r == -1 || (a == 0 && input == 0))
+		a = read(STDIN_FILENO, &c, 1);
+		if (a == -1 || (a == 0 && input == 0))
 		{
 			free(buffer);
 			return (-1);
