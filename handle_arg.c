@@ -18,7 +18,7 @@ char *get_args(char *line, int *executed_ret)
 {
 	size_t n = 0;
 	ssize_t read;
-	char *prompt = "incredibleshell# ";
+	char *prompt = "incredible_shell# ";
 
 	if (line)
 		free(line);
@@ -30,7 +30,7 @@ char *get_args(char *line, int *executed_ret)
 	{
 		hist++;
 		if (isatty(STDIN_FILENO))
-			write(STDOUT_FILENO, prompt, 2);
+			write(STDOUT_FILENO, prompt, 17);
 		return (get_args(line, executed_ret));
 	}
 

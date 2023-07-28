@@ -4,16 +4,16 @@ void sig_handler(int sig);
 int execute(char **args, char **front);
 
 /**
- * sig_handler - Prints a new prompt according to a given signal.
- * @sig: The signal.
+ * sig_handler - Prints a new prompt regarding the given signal
+ * @sig: The signal to use
  */
 void sig_handler(int sig)
 {
-	char *new_prompt = "\n$ ";
+	char *new_prompt = "\n# ";
 
 	(void)sig;
 	signal(SIGINT, sig_handler);
-	write(STDIN_FILENO, new_prompt, 3);
+	write(STDIN_FILENO, new_prompt, 18);
 }
 
 /**
@@ -75,11 +75,11 @@ int execute(char **args, char **front)
 }
 
 /**
- * main - Runs a whole simple shell command interpreter.
- * @argc: The number of arguments inputed to the program.
- * @argv: An array of pointers to the arguments.
+ * main - Runs a whole simple shell command interpreter
+ * @argc: The number of arguments inputed to the program
+ * @argv: An array of pointers to the arguments
  *
- * Return: The return value of the last executed command.
+ * Return: The return value of the last executed command
  */
 int main(int argc, char *argv[])
 {
@@ -116,7 +116,7 @@ int main(int argc, char *argv[])
 
 	while (1)
 	{
-		write(STDOUT_FILENO, prompt, 2);
+		write(STDOUT_FILENO, prompt, 17);
 		ret = handle_args(execute_ret);
 		if (ret == END_OF_FILE || ret == EXIT)
 		{
